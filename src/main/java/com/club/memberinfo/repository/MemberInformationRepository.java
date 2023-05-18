@@ -27,4 +27,9 @@ public interface MemberInformationRepository extends JpaRepository<MemberInforma
 	@Query(value="SELECT MEMBERID FROM club_memberinfo "
 			+ "WHERE MEMBERROWID=(SELECT MAX(MEMBERROWID) FROM club_memberinfo)",nativeQuery=true)
 	public Optional<String> fetchLastRowMemberId();
+	
+	
+	@Query(value="SELECT MEMBERROWID,MEMBERID,FIRST_NAME,LAST_NAME,EMAIL,CONTACT_NO,ADDRESS,CREATED_DATE,MODIFIED_DATE FROM club_memberinfo "
+			+ "WHERE MEMBERID=?1",nativeQuery=true)
+	public Optional<MemberInformation> fetchMemberInfoByMemberId(String memberId);
 }

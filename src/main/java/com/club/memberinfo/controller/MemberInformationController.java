@@ -58,9 +58,16 @@ public class MemberInformationController {
 
 		MemberInformation memberInformationEntity = clubMemberInfoMapper.getMemberInformation(memberInformation);
 
+		if(null==memberInformation.getMemberId()|| memberInformation.getMemberId().isEmpty()==true) {
 		String generatedMemberId = memberInformationService.fetchLastRowMemberId();
 		memberInformationEntity.setMemberId(generatedMemberId);
 		memberInformationEntity.setCreatedDate(new Date());
+		}else
+		{
+			memberInformationEntity.setModifiedDate(new Date());
+		}
+		
+		
 
 		MemberInformation createdMember = memberInformationHelper
 				.createOrUpdateMemberInformation(memberInformationEntity);
@@ -155,6 +162,13 @@ public class MemberInformationController {
 		String resp = memberInformationUtil.saveMemberFeesMultipleYear(memberId, feesamount);
 
 		return new ResponseEntity<>(resp, null, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/fetchMemberByMemberId/{memberId}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<MemberInformation> fetchMemberByMemberId(@PathVariable("memberId") String memberId) {
+
+		return new ResponseEntity<>(memberInformationService.fetchMemberInfoByMemberId(memberId), null, HttpStatus.OK);
+
 	}
 	
 }

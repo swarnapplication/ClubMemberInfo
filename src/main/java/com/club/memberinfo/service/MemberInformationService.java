@@ -12,4 +12,5 @@ public interface MemberInformationService {
 	public List<MemberInformation> fetchmemberByContactNoOREmail(String contactNo,String email);
 	public List<MemberInformationResponseModel> fetchMemberListByAddress(String address);
 	public String fetchLastRowMemberId();
+	public MemberInformation fetchMemberInfoByMemberId(String memberId);
 }

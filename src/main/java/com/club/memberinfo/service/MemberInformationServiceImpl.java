@@ -73,4 +73,14 @@ public class MemberInformationServiceImpl implements MemberInformationService{
 		return nextMemberId;
 	}
 
+	@Override
+	public MemberInformation fetchMemberInfoByMemberId(String memberId) {
+		// TODO Auto-generated method stub
+
+		Optional<MemberInformation> memberInfoOptional = memberInformationRepository
+				.fetchMemberInfoByMemberId(memberId);
+		return memberInfoOptional.isPresent() ? memberInfoOptional.get() : new MemberInformation();
+
+	}
+
 }
